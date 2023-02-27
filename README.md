@@ -1,4 +1,14 @@
-# The Fresh theme for Hugo
+# The (enhanced) Fresh theme for Hugo
+
+> **NOTE:** This theme is not ready until these items are complete:
+>
+> - [ ] Describe all intended changes
+> - [ ] Implement all intended changes
+> - [ ] Update README
+> - [ ] Update LICENSE
+> - [ ] Remove this note
+>
+> _The remainder of this README is still a copy of the original._
 
 [![Documentation](https://img.shields.io/badge/Documentation-red)](https://stefma.github.io/hugo-fresh) 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-blue)](https://hugo-fresh.vercel.app)
