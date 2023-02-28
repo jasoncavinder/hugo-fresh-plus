@@ -1,18 +1,19 @@
 {{- $inServerMode := .Site.IsServer }}
-{{- $sass         := "style.sass" }}
-{{- $cssTarget    := "css/style.css" }}
-{{- $cssOpts      := cond ($inServerMode) (dict "targetPath" $cssTarget "enableSourceMap" true) (dict "targetPath" $cssTarget "outputStyle" "compressed") }}
+{{- $sass         := resources.Match "theme_style.sass" | append (where (resources.Match "*.s[ac]ss") "Name" "!=" "theme_style.sass") }}
+{{- $cssBundle    := slice }}
+{{- range $index, $res := $sass }}
+    {{- $cssTarget    := printf "css/tmp%d.css" $index }}
+    {{- $cssOpts      := cond ($inServerMode) (dict "targetPath" $cssTarget "enableSourceMap" true) (dict "targetPath" $cssTarget "outputStyle" "compressed") }}
+    {{- $cssBundle    = $cssBundle | append (resources.Get $res | toCSS $cssOpts) }}
+{{- end }}
+{{- $cssBundle    = $cssBundle | union (resources.Match "*.css") }}
+{{- $css          := $cssBundle | resources.Concat "css/style.css" }}
+{{- $css          = cond ($inServerMode) $css ($css | minify | fingerprint) }}
 {{- $fontName     := .Site.Params.font.name | default "Open Sans" }}
 {{- $fontFace     := replace $fontName " " "+" }}
 {{- $fontSizes    := delimit (.Site.Params.font.sizes | default (slice 300 400 600 700)) "," }}
 {{- $fontUrl      := printf "https://fonts.googleapis.com/css?family=%s:%s" $fontFace $fontSizes }}
 <link rel="icon" type="image/png" href="{{ "images/favicon.png" | relURL }}" />
 <link href="{{ $fontUrl }}" rel="stylesheet">
-{{- if $inServerMode }}
-{{- $css := resources.Get $sass | toCSS $cssOpts }}
-<link rel="stylesheet" type="text/css" href="{{ $css.RelPermalink }}">
-{{- else }}
-{{- $css := resources.Get $sass | toCSS $cssOpts | minify | fingerprint }}
-<link rel="stylesheet" type="text/css" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
-{{- end }}
+<link rel="stylesheet" type="text/css" href="{{ $css.RelPermalink }}"{{- if not $inServerMode }} integrity="{{ $css.Data.Integrity }}"{{- end }}>
 <link rel="stylesheet" type="text/css" href="{{ "css/icons.css" | relURL }}">
