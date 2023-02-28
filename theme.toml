@@ -1,12 +1,12 @@
-name = "Hugo Fresh"
+name = "Hugo Fresh+"
 license = "MIT"
-licenselink = "https://github.com/StefMa/hugo-fresh/blob/master/LICENSE.md"
-description = "A Hugo adaptation of the Fresh theme from CSS Ninja"
-homepage = "https://github.com/StefMa/hugo-fresh"
-tags = ["responsive", "one page", "light", "onepage", "company", "clean", "landing page"]
+licenselink = "https://github.com/jasoncavinder/hugo-fresh-plus/blob/master/LICENSE.md"
+description = "A Hugo adaptation of the Fresh theme from CSS Ninja and enhanced with newer Hugo features and with client use in mind."
+homepage = "https://github.com/jasoncavinder/hugo-fresh-plus"
+tags = ["responsive", "light", "company", "clean", "landing page"]
 features = []
-min_version = "0.45"
+min_version = "0.110.0"
 
 [author]
-  name = "Stefan M."
-  homepage = "https://github.com/StefMa"
+  name = "Jason Cavinder"
+  homepage = "https://github.com/jasoncavinder"
